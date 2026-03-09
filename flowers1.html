@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Цветочный сайт</title>
+<!-- Подключение шрифта Bodega Script -->
+<style>
+@font-face {
+  font-family: 'Bodega Script';
+  src: url('bodega-script.ttf') format('truetype');
+}
+
+/* Общие стили */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #ffe6f0; /* нежно-розовый фон */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  padding-top: 80px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Заголовок с рамкой - используем шрифт Bodega Script */
+h1 {
+  font-family: 'Bodega Script', cursive;
+  font-size: 2em;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 3px solid #ffe4e1;
+  border-radius: 10px;
+  color: #ff69b4;
+  background-color: #fff0f5;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  position: relative;
+  z-index: 1;
+}
+
+/* Нижняя надпись - тоже с шрифтом Bodega Script */
+.bottom-text {
+  margin-top: 20px; /* увеличил отступ */
+  max-width: 600px;
+  text-align: center;
+  font-size: 1.2em;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-delay: 2s;
+  font-family: 'Bodega Script', cursive;
+  position: relative;
+  z-index: 1;
+}
+
+/* Новая нижняя заметка */
+.bottom-note {
+  margin-top: 30px; /* увеличил отступ */
+  font-size: 0.8em;
+  font-style: italic;
+  color: #555;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-delay: 3s;
+  position: relative;
+  z-index: 1;
+}
+
+/* Фото букет */
+.photo {
+  margin-top: 20px;
+  width: 300px;
+  max-width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-delay: 0.5s;
+  position: relative;
+  z-index: 1;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Стиль сердечка */
+.heart {
+  position: fixed;
+  top: -50px;
+  width: 12px;
+  height: 12px;
+  background-color: pink;
+  opacity: 0.8;
+  transform: rotate(45deg);
+  transform-origin: center;
+  animation: fall 15s linear forwards;
+  cursor: pointer;
+  z-index: 0; /* позади основного содержимого */
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: pink;
+  border-radius: 50%;
+}
+.heart::before {
+  top: -6px;
+  left: 0;
+}
+.heart::after {
+  top: 0;
+  left: -6px;
+}
+
+/* Анимация падения */
+@keyframes fall {
+  0% {
+    opacity: 0.8;
+    transform: translateX(0) translateY(0) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(var(--dx)) translateY(100vh) rotate(720deg);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Создание сердечек позади всех элементов -->
+<script>
+  const numHearts = 300; // очень много сердечек
+  for (let i = 0; i < numHearts; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+
+    const left = Math.random() * 100;
+    heart.style.left = left + '%';
+
+    const dx = (Math.random() - 0.5) * 300;
+    heart.style.setProperty('--dx', dx + 'px');
+
+    const duration = 8 + Math.random() * 7;
+    heart.style.animationDuration = duration + 's';
+    heart.style.animationIterationCount = 'infinite';
+
+    const delay = Math.random() * -20;
+    heart.style.animationDelay = delay + 's';
+
+    document.body.appendChild(heart);
+  }
+</script>
+
+<!-- Контейнер для основного содержимого, чтобы оно было поверх сердечек -->
+<div style="position: relative; z-index: 1; width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 300px;">
+  <!-- Букет вверху -->
+  <div class="photo">
+    <img src="bouquet.png" alt="Мое фото" style="width: 100%; height: auto;">
+  </div>
+
+  <!-- Заголовок -->
+  <h1>С 8 марта тебя!</h1>
+
+  <!-- Нижняя надпись -->
+  <div class="bottom-text">
+    Этот сайт выполнен с любовью и нежностью,<br>
+    как букет самых красивых цветов.
+  </div>
+
+  <!-- Новая нижняя заметка -->
+  <div class="bottom-note">
+    С любовью и теплом • От Вани Насте
+  </div>
+</div>
+
+</body>
+</html>
